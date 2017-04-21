@@ -1,0 +1,23 @@
+plugins {
+    id "java-gradle-plugin"
+}
+
+group "ninja.bryansills"
+version '0.0.1'
+
+gradlePlugin {
+    plugins {
+        jsonVerify {
+            id = "ninja.bryansills.gradle-json-verify"
+            implementationClass = "ninja.bryansills.JsonVerifyPlugin"
+        }
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'com.squareup.moshi:moshi:1.4.0'
+}

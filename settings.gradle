@@ -1,0 +1,5 @@
+rootProject.name = 'gradle-json-verify-project'
+
+include ':consumer', ':android-sample'
+
+includeBuild './gradle-json-verify'

@@ -1,0 +1,16 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "ninja.bryansills:gradle-json-verify:0.0.1"
+    }
+}
+
+task preBuild {}
+
+apply plugin: 'ninja.bryansills.gradle-json-verify'
+
+jsonVerify {
+    path = "json/"
+}
