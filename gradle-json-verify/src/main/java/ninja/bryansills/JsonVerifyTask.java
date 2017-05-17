@@ -11,11 +11,10 @@ import java.io.File;
 import java.util.Map;
 
 public class JsonVerifyTask extends DefaultTask {
-
     @TaskAction
     public void jsonVerify() {
         JsonVerifyExtension extension = (JsonVerifyExtension) getProject().getExtensions().findByName("jsonVerify");
-        ConfigurableFileTree configFiles = getProject().fileTree(getProject().getProjectDir() + "/" + extension.getPath());
+        ConfigurableFileTree configFiles = getProject().fileTree(getProject().getProjectDir() + "/" + extension.getSrcDir());
 
         configFiles.forEach(file -> {
             if (".json".equals(getFileExtension(file))) {
@@ -31,7 +30,7 @@ public class JsonVerifyTask extends DefaultTask {
         try {
             Map jsonMap = jsonAdapter.fromJson(Okio.buffer(Okio.source(file)));
         } catch (Exception exception) {
-            throw new RuntimeException(exception);
+            throw new JsonVerifyException(file.getName(), exception);
         }
     }
 

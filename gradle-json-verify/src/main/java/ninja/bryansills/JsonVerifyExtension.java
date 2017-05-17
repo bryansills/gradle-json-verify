@@ -2,13 +2,13 @@ package ninja.bryansills;
 
 public class JsonVerifyExtension {
 
-    String path = "/json/";
+    String srcDir = "/json/";
 
-    public String getPath() {
-        return path;
+    public String getSrcDir() {
+        return srcDir;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setSrcDir(String srcDir) {
+        this.srcDir = srcDir;
     }
 }
