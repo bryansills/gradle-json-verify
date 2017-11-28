@@ -8,9 +8,9 @@ import java.io.File
 
 open class JsonVerifyTask : DefaultTask() {
     @TaskAction
-    fun jsonVerify() {
+    fun action() {
         val extension = project.extensions.findByName("jsonVerify") as JsonVerifyExtension
-        val configFiles = project.fileTree(project.projectDir.toString() + "/" + extension.srcDir)
+        val configFiles = project.fileTree("${project.projectDir.path}/${extension.srcDir}")
 
         configFiles.forEach { file ->
             if (".json" == getFileExtension(file)) {
@@ -26,7 +26,7 @@ open class JsonVerifyTask : DefaultTask() {
         try {
             val jsonMap = jsonAdapter.fromJson(Okio.buffer(Okio.source(file)))
         } catch (exception: Exception) {
-            throw JsonVerifyException(String.format("%s in file: %s", exception.message, file.path), exception)
+            throw JsonVerifyException("${exception.message} in file: ${file.path}", exception)
         }
 
     }
