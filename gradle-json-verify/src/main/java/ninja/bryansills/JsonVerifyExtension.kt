@@ -1,5 +1,3 @@
 package ninja.bryansills
 
-open class JsonVerifyExtension {
-    var srcDir = "/json/"
-}
+open class JsonVerifyExtension (var srcDir: String = "/json/")
