@@ -2,15 +2,20 @@ package ninja.bryansills
 
 import com.squareup.moshi.Moshi
 import okio.Okio
-import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.SourceTask
 import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.incremental.IncrementalTaskInputs
 import java.io.File
 
-open class JsonVerifyTask : DefaultTask() {
+open class JsonVerifyTask : SourceTask() {
     @TaskAction
-    fun action() {
+    fun action(inputs: IncrementalTaskInputs) {
         val extension = project.extensions.findByName("jsonVerify") as JsonVerifyExtension
         val configFiles = project.fileTree("${project.projectDir.path}/${extension.srcDir}")
+
+        inputs.outOfDate {
+            println(it.file.path)
+        }
 
         configFiles.forEach { file ->
             if (".json" == getFileExtension(file)) {

@@ -16,12 +16,14 @@ gradlePlugin {
 }
 
 repositories {
+    google()
     jcenter()
 }
 
 dependencies {
     compileOnly gradleApi()
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:1.2.0"
+    implementation 'com.android.tools.build:gradle:3.0.1'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jre8:1.2.0'
     implementation 'com.squareup.moshi:moshi:1.4.0'
 
     testImplementation 'junit:junit:4.12'

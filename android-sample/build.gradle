@@ -32,6 +32,29 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "one", "two"
+
+    productFlavors {
+        alpha {
+            dimension "one"
+        }
+        beta {
+            dimension "one"
+        }
+        gamma {
+            dimension "one"
+        }
+        delta {
+            dimension "two"
+        }
+        epsilon {
+            dimension "two"
+        }
+        zeta {
+            dimension "two"
+        }
+    }
 }
 
 repositories {
