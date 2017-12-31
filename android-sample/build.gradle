@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.0'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.10'
         classpath "ninja.bryansills:gradle-json-verify:0.0.1"
     }
 }
@@ -72,5 +72,5 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.0.2'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
-    compile 'org.jetbrains.kotlin:kotlin-stdlib-jre7:1.2.0'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib-jre7:1.2.10'
 }

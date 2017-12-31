@@ -8,18 +8,14 @@ import org.gradle.api.tasks.incremental.IncrementalTaskInputs
 import java.io.File
 
 open class JsonVerifyTask : SourceTask() {
+
+    lateinit var output: File
+
     @TaskAction
     fun action(inputs: IncrementalTaskInputs) {
-        val extension = project.extensions.findByName("jsonVerify") as JsonVerifyExtension
-        val configFiles = project.fileTree("${project.projectDir.path}/${extension.srcDir}")
-
-        inputs.outOfDate {
-            println(it.file.path)
-        }
-
-        configFiles.forEach { file ->
-            if (".json" == getFileExtension(file)) {
-                verifyJsonFile(file)
+        inputs.outOfDate { inputFileDetails ->
+            if (".json" == getFileExtension(inputFileDetails.file)) {
+                verifyJsonFile(inputFileDetails.file)
             }
         }
     }
@@ -30,6 +26,7 @@ open class JsonVerifyTask : SourceTask() {
 
         try {
             val jsonMap = jsonAdapter.fromJson(Okio.buffer(Okio.source(file)))
+            println("${file.path} is good")
         } catch (exception: Exception) {
             throw JsonVerifyException("${exception.message} in file: ${file.path}", exception)
         }

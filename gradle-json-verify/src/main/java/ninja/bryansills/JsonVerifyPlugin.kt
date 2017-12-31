@@ -9,6 +9,7 @@ import org.gradle.api.DomainObjectSet
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileTree
+import java.io.File
 
 class JsonVerifyPlugin : Plugin<Project> {
     override fun apply(project: Project) {
@@ -25,24 +26,26 @@ class JsonVerifyPlugin : Plugin<Project> {
     }
 
     private fun <T : BaseVariant> configureTask(project: Project, extension: JsonVerifyExtension, variants: DomainObjectSet<T>) {
-        variants.all {
+        variants.all { variant ->
             val files = mutableListOf<ConfigurableFileTree>()
-            it.sourceSets.forEach {
-                val sourceSetFilePath = "${project.projectDir.path}/src/${it.name}/${extension.srcDir}"
+            variant.sourceSets.forEach { sourceSet ->
+                val sourceSetFilePath = "${project.projectDir.path}/src/${sourceSet.name}/${extension.srcDir}"
                 val variantFolder = project.fileTree(sourceSetFilePath)
 
                 files.add(variantFolder)
             }
 
-            val taskName = "jsonVerify${it.name.capitalize()}"
+            val taskName = "jsonVerify${variant.name.capitalize()}"
             val task = project.tasks.create(taskName, JsonVerifyTask::class.java)
+            val outputDir = File("${project.buildDir}/generated/source/latte/${variant.dirName}")
 
             task.apply {
                 source = project.files(files).asFileTree
+                output = outputDir
                 include("*.json")
             }
 
-            it.registerJavaGeneratingTask(task, project.buildDir) // TODO: prob shouldn't use `project.buildDir`
+            variant.registerJavaGeneratingTask(task, outputDir)
         }
     }
 }
